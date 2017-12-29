@@ -51,7 +51,6 @@ python3 validate.py
 
 Clients create JWTs signed with the generated PEM:
 ```
-import json
 from jose import jwt
 with open('id.pem', 'r') as f:
     pem = f.read()
