@@ -1,9 +1,9 @@
 import argparse
 import base64
-import json
 from Crypto.PublicKey import RSA
-from jose import jwk, jwt
 import datetime
+from jose import jwt
+import json
 import re
 
 JWKS_FILENAME = 'id.json'
