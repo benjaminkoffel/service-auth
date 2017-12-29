@@ -17,6 +17,7 @@ Key rotation is achieved by generating a key with same `kid` and newer version d
 Obsolete keys can then be deleted at a later date once the new key has propagated.
 
 ## Benefits
+- no transmission of shared secrets
 - very limited infrastructure overhead
 - identity is centralised and can be verified and audited
 - authorization can be controlled by services
