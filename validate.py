@@ -10,12 +10,6 @@ KEY_ALGORITHM = 'RS256'
 
 class Validate(unittest.TestCase):
 
-    jwks = None
-
-    def setUp(self):
-        with open(JWKS_FILENAME, 'r') as f:
-            self.jwks = json.loads(f.read())
-
     def validate_date(self, date):
         try:
             return datetime.datetime.strptime(date, '%Y%m%d')
@@ -30,14 +24,14 @@ class Validate(unittest.TestCase):
 
     def test_validate_jwks(self):
         with open(JWKS_FILENAME, 'r') as f:
-            self.jwks = json.loads(f.read())
-        self.assertIn('keys', self.jwks, 'keys property not found')
-        self.assertIsNotNone(self.jwks['keys'], 'keys value is null')
-        for key in self.jwks['keys']:
+            jwks = json.loads(f.read())
+        self.assertIn('keys', jwks, 'keys property not found')
+        self.assertIsNotNone(jwks['keys'], 'keys value is null')
+        for key in jwks['keys']:
             self.assertIn('kid', key, 'kid property not found')
             self.assertRegex(key['kid'], KEY_KID_FORMAT, 'kid has an invalid format')
             self.assertIsNotNone(self.validate_date(key['kid'][-8:]), 'kid postfix has invalid date')
-            self.assertEqual(1, len([k for k in self.jwks['keys'] if k['kid'] == key['kid']]), 'kid is used in multiple keys')
+            self.assertEqual(1, len([k for k in jwks['keys'] if k['kid'] == key['kid']]), 'kid is used in multiple keys')
             self.assertIn('kty', key, 'kty property not found')
             self.assertEqual(KEY_TYPE, key['kty'], 'kty value is invalid')
             self.assertIn('alg', key, 'alg property not found')

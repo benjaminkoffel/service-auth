@@ -65,6 +65,6 @@ def main(kid):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate RSA256 PEM and append public key JWK to id.json')
-    parser.add_argument('--kid', help='key identifier')
+    parser.add_argument('--kid', required=True, help='key identifier')
     args = parser.parse_args()
     main(args.kid)
