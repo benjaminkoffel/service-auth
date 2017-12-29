@@ -59,11 +59,21 @@ headers = {'kid': 'example-key-20171229'}
 token = jwt.encode(claims, pem, 'RS256', headers)
 ```
 
-And services verify JWTs using the JWKS file:
+Services authenticate by verifying JWT with JWKS:
 ```
 import json
 from jose import jwt
 with open('id.json', 'r') as f:
     jwks = json.loads(f.read())
-claims = jwt.decode(token, jwks, 'RS256')
+headers = jwt.get_unverified_header(token)
+key = [k for k in jwks['keys'] if k['kid'] == headers['kid']]
+claims = jwt.decode(token, key, 'RS256')
+```
+
+Services enforce authorization via ACL:
+```
+from jose import jwt
+acl = ['example-key']
+headers = jwt.get_unverified_header(token)
+assert headers['kid'][:-9] in acl
 ```
