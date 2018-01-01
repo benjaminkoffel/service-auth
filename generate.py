@@ -16,7 +16,7 @@ def validate_keypair(pem, pub):
         return jwt.decode(jwt.encode({}, pem, KEY_ALGORITHM), pub, KEY_ALGORITHM) == {}
     except jwt.JWTError:
         print('ERROR: could not encode/decode using keypair')
-        return True
+        return False
 
 def b64_bigendian(i):
     return base64.urlsafe_b64encode(i.to_bytes((i.bit_length() + 7) // 8,'big')).decode('utf-8')
