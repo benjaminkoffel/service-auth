@@ -1,13 +1,6 @@
 {
     "keys": [
         {
-            "kid": "example-key-20180101",
-            "kty": "RSA",
-            "alg": "RS256",
-            "e": "AQAB",
-            "n": "3SqdBjoNG3vEqBl9TdCXawYic3ps1DnhLNB2zOTIKvg12ItzbmTTTy_gPEIdP005iMdRevyMcxhx7WrD4GJOZ3YW31Epf4qyWZegGw2H0NSWvgDRez5UtJPt1-Ta8CVt8XBHb27GgScdqriQcT5XOSpJUFy6SEFiZ9EyJRxFh_PPZSUsjOMMX3b4PioRiakBlmQfTQQqFC2AkjwDOv7OD9-jSXh0ncZkOIMv0KoU8iELBl86ExN903OvnwkV4xLc30EXv8aRUao6EhQgH3Pir-5wk0DzWiZEyNfanYMMRxN-oRA8ALn-DBLH9XH2utMQa3VNJLPZ0rz3VeqDLC7ISQ=="
-        },
-        {
             "kid": "example-python-flask-20180101",
             "kty": "RSA",
             "alg": "RS256",
