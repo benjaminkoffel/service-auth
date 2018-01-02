@@ -1,6 +1,6 @@
 import argparse
 import base64
-from Crypto.PublicKey import RSA
+from Cryptodome.PublicKey import RSA
 import datetime
 from jose import jwt
 import json
