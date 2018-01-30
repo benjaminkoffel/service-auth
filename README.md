@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/benjaminkoffel/service-auth.svg?branch=master)](https://travis-ci.org/benjaminkoffel/service-auth)
+[![Build Status](https://travis-ci.org/benjaminkoffel/service-auth.svg?branch=master)](https://travis-ci.org/benjaminkoffel/service-auth) [![Maintainability](https://api.codeclimate.com/v1/badges/5abbd71eec17eb8940d7/maintainability)](https://codeclimate.com/github/benjaminkoffel/service-auth/maintainability)
 
 # Service Authentication
 
