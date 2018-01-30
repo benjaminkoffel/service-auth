@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/benjaminkoffel/service-auth.svg?branch=master)](https://travis-ci.org/benjaminkoffel/service-auth)
+
 # Service Authentication
 
 Example of authentication using client signed JWTs.
