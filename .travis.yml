@@ -3,3 +3,6 @@ python:
   - "3.6"
 script:
   - python validate.py
+  - snyk test
+after_success:
+  - snyk monitor
