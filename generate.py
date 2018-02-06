@@ -19,7 +19,7 @@ def validate_keypair(pem, pub):
         return False
 
 def b64_bigendian(i):
-    return base64.urlsafe_b64encode(i.to_bytes((i.bit_length() + 7) // 8,'big')).decode('utf-8')
+    return base64.urlsafe_b64encode(i.to_bytes((i.bit_length() + 7) // 8,'big')).decode('utf-8').replace('=', '')
 
 def generate_keypair(kid):
     key = RSA.generate(2048)
