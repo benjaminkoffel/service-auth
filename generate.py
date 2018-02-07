@@ -2,7 +2,6 @@ import argparse
 import base64
 from Cryptodome.PublicKey import RSA
 import datetime
-from jose import jwt
 import json
 import re
 
@@ -10,13 +9,6 @@ JWKS_FILENAME = 'id.json'
 KEY_KID_FORMAT = r'^[a-zA-Z0-9-]+-[0-9]{8}$'
 KEY_TYPE = 'RSA'
 KEY_ALGORITHM = 'RS256'
-
-def validate_keypair(pem, pub):
-    try:
-        return jwt.decode(jwt.encode({}, pem, KEY_ALGORITHM), pub, KEY_ALGORITHM) == {}
-    except jwt.JWTError:
-        print('ERROR: could not encode/decode using keypair')
-        return False
 
 def b64_bigendian(i):
     return base64.urlsafe_b64encode(i.to_bytes((i.bit_length() + 7) // 8,'big')).decode('utf-8').replace('=', '')
@@ -56,8 +48,6 @@ def main(kid):
     if not validate_kid(jwks, kid):
         return
     pem, pub = generate_keypair(kid)
-    if not validate_keypair(pem, pub):
-        return
     jwks['keys'].append(pub)
     with open(JWKS_FILENAME, 'w') as f:
         f.write(json.dumps(jwks, indent=4))

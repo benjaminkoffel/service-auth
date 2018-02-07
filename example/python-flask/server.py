@@ -2,7 +2,7 @@ from functools import wraps
 import json
 import re
 from flask import Flask, request, abort, g
-from jose import jwt
+import jwt
 
 app = Flask(__name__)
 
@@ -21,10 +21,11 @@ def authorize(function):
         try:
             token = pattern.findall(request.headers['Authorization'])[0]
             headers = jwt.get_unverified_header(token)
-            keys = [k for k in jwks['keys'] if k['kid'] == headers['kid']]
+            jwk = [k for k in jwks['keys'] if k['kid'] == headers['kid']][0]
+            key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
             g.identity = {
                 'headers': headers,
-                'claims': jwt.decode(token, keys, 'RS256', audience=uri)
+                'claims': jwt.decode(token, key, algorithms='RS256', audience=uri)
             }
         except Exception:
             abort(401)

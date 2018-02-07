@@ -2,7 +2,7 @@ import time
 import calendar
 import uuid
 import requests
-from jose import jwt
+import jwt
 
 uri = 'http://localhost:5000'
 
@@ -20,7 +20,7 @@ def token(audience):
         'exp': timestamp + 60
     }
     headers = {'kid': kid}
-    return jwt.encode(claims, pem, 'RS256', headers)
+    return jwt.encode(claims, pem, 'RS256', headers).decode('utf-8')
 
 def main():
     while True:

@@ -53,29 +53,36 @@ python3 validate.py
 
 Clients create JWTs signed with the generated PEM:
 ```
-from jose import jwt
+import jwt
 with open('id.pem', 'r') as f:
     pem = f.read()
 claims = {'sub': '0'}
 headers = {'kid': 'example-key-20171229'}
-token = jwt.encode(claims, pem, 'RS256', headers)
+token = jwt.encode(claims, pem, 'RS256', headers).decode('utf-8')
 ```
 
 Services authenticate by verifying JWT with JWKS:
 ```
-import json
-from jose import jwt
+import jwt
 with open('id.json', 'r') as f:
     jwks = json.loads(f.read())
 headers = jwt.get_unverified_header(token)
-key = [k for k in jwks['keys'] if k['kid'] == headers['kid']]
-claims = jwt.decode(token, key, 'RS256')
+jwk = [k for k in jwks['keys'] if k['kid'] == headers['kid']][0]
+key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
+claims = jwt.decode(token, key, algorithms='RS256', audience=uri)
 ```
 
 Services enforce authorization via ACL:
 ```
-from jose import jwt
+import jwt
 acl = ['example-key']
 headers = jwt.get_unverified_header(token)
 assert headers['kid'][:-9] in acl
+```
+
+Example implementations:
+```
+# /example/python-flask
+python3 server.py
+python3 client.py
 ```
