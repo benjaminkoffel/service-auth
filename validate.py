@@ -1,5 +1,5 @@
 import datetime
-from jose import jwk
+import jwt
 import json
 import unittest
 
@@ -18,8 +18,8 @@ class Validate(unittest.TestCase):
 
     def validate_jwk(self, key):
         try:
-            return jwk.construct(key, KEY_ALGORITHM)
-        except jwk.JWKError:
+            return jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(key))
+        except Exception:
             return None
 
     def test_validate_jwks(self):
