@@ -13,7 +13,7 @@ KEY_ALGORITHM = 'RS256'
 def b64_bigendian(i):
     return base64.urlsafe_b64encode(i.to_bytes((i.bit_length() + 7) // 8,'big')).decode('utf-8').replace('=', '')
 
-def generate_keypair(kid):
+def create_keypair(kid):
     key = RSA.generate(2048)
     private = key.exportKey('PEM')
     public = {
@@ -42,19 +42,19 @@ def validate_kid(jwks, kid):
         return False
     return True
 
-def main(kid):
+def generate(kid):
     with open(JWKS_FILENAME, 'r') as f:
         jwks = json.loads(f.read())
     if not validate_kid(jwks, kid):
         return
-    pem, pub = generate_keypair(kid)
+    pem, pub = create_keypair(kid)
     jwks['keys'].append(pub)
     with open(JWKS_FILENAME, 'w') as f:
         f.write(json.dumps(jwks, indent=4))
-    print(pem.decode('utf-8'))
+    return pem.decode('utf-8')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate RSA256 PEM and append public key JWK to id.json')
     parser.add_argument('--kid', required=True, help='key identifier')
     args = parser.parse_args()
-    main(args.kid)
+    print(generate(args.kid))
