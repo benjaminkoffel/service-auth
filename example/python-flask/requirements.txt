@@ -1,4 +1,4 @@
-cryptography==2.1.4
+cryptography==41.0.0
 Flask==0.12.2
 PyJWT==1.5.3
 requests==2.18.4
