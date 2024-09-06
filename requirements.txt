@@ -1,3 +1,4 @@
 cryptography==2.3.1
 pycryptodome==3.6.6
 PyJWT==1.6.4
+idna>=3.7 # not directly required, pinned by Snyk to avoid a vulnerability
